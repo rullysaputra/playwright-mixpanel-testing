@@ -1,0 +1,26 @@
+{
+  "name": "mixpanel-e2e-testing",
+  "version": "1.0.0",
+  "description": "E2E testing suite for Mixpanel analytics migration",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "ENV=staging playwright test --ui",
+    "test:staging": "ENV=staging playwright test",
+    "test:production": "ENV=production playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "show-report": "playwright show-report",
+    "install-browsers": "playwright install",
+    "setup": "pnpm install && pnpm run install-browsers"
+  },
+  "keywords": ["playwright", "e2e", "testing", "mixpanel", "analytics"],
+  "author": "Rully Saputra",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "dependencies": {}
+}
