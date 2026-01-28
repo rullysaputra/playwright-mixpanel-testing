@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mixpanel Analytics Test Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .report { border: 1px solid #ddd; margin: 20px 0; padding: 20px; border-radius: 8px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .warning { background: #fff3cd; border-color: #ffeaa7; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+        .event { margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+        .payload { background: #e9ecef; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px; white-space: pre-wrap; }
+        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f2f2f2; }
+        .status-success { color: #28a745; font-weight: bold; }
+        .status-error { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Mixpanel Analytics Test Report</h1>
+    <p>Generated: 1/28/2026, 1:50:45 PM</p>
+    
+    
+        <div class="report success">
+            <h2>Test 1: Page Load Events</h2>
+            <p><strong>URL:</strong> https://gatotkaca.tiket.com/id-id/flights</p>
+            <p><strong>Timestamp:</strong> 2026-01-28T06:50:45.251Z</p>
+            <p><strong>🔍 Device ID:</strong> <code style="background: #e9ecef; padding: 2px 4px; border-radius: 3px; font-family: monospace;">f76189a3-a934-466e-8887-b41305b7a744</code></p>
+            <p><strong>🔑 Mixpanel Token:</strong> <code style="background: #e9ecef; padding: 2px 4px; border-radius: 3px; font-family: monospace;">f3c53988917c8b879ce8e5bc6040838e</code></p>
+            
+            <h3>📊 Summary</h3>
+            <table>
+                <tr><th>Metric</th><th>Value</th></tr>
+                <tr><td>Total Requests</td><td>147</td></tr>
+                <tr><td>Mixpanel Requests</td><td>1</td></tr>
+                <tr><td>Expected Events</td><td>2</td></tr>
+                <tr><td>Found Events</td><td>7</td></tr>
+                <tr><td>Missing Events</td><td>0</td></tr>
+            </table>
+            
+            <h3>🎯 Event Results</h3>
+            
+                <div class="event">
+                    <strong>$identify</strong> 
+                    <span class="status-success">
+                        ✅ FOUND
+                    </span>
+                    <div class="payload">{
+  "event": "$identify",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "bs6v8el0l8oudyjc",
+    "time": 1769583040.234,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "$anon_distinct_id": "$device:b3c5abb0-cda3-46e0-a8ab-e8f9c2c1a1a8",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</div>
+                    
+                </div>
+            
+                <div class="event">
+                    <strong>pageVisit</strong> 
+                    <span class="status-success">
+                        ✅ FOUND
+                    </span>
+                    <div class="payload">{
+  "event": "pageVisit",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "wxzu94pan0qgepxa",
+    "time": 1769583043.331,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventAction": "pageView",
+    "eventCategory": "pageVisit",
+    "utmPage": "none",
+    "utmSection": "none",
+    "utmLogic": "none",
+    "screenName": "flightMainPage",
+    "vertical": "flight",
+    "eventLabel": "newURL",
+    "localeOnURL": "ID;ID;null",
+    "localeOnPreference": "null;null;null",
+    "localeOnDetection": "EN;SG;SGD",
+    "localeOutput": "ID;ID;IDR",
+    "isFirstPage": 1,
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</div>
+                    
+                </div>
+            
+            
+            <h3>📦 All Captured Events (Raw Payload)</h3>
+            <p><strong>Total Events Captured:</strong> 7</p>
+            
+                <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #f8f9fa;">
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 1: $identify</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 17 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "$identify",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "bs6v8el0l8oudyjc",
+    "time": 1769583040.234,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "$anon_distinct_id": "$device:b3c5abb0-cda3-46e0-a8ab-e8f9c2c1a1a8",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 2: pageVisit</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 51 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "pageVisit",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "wxzu94pan0qgepxa",
+    "time": 1769583043.331,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventAction": "pageView",
+    "eventCategory": "pageVisit",
+    "utmPage": "none",
+    "utmSection": "none",
+    "utmLogic": "none",
+    "screenName": "flightMainPage",
+    "vertical": "flight",
+    "eventLabel": "newURL",
+    "localeOnURL": "ID;ID;null",
+    "localeOnPreference": "null;null;null",
+    "localeOnDetection": "EN;SG;SGD",
+    "localeOutput": "ID;ID;IDR",
+    "isFirstPage": 1,
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 3: [Experiment] Exposure</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 42 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "[Experiment] Exposure",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "qr9dgf1j4iwe6r86",
+    "time": 1769583043.663,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventCategory": "[Experiment] Exposure",
+    "[Experiment] Flag Key": "flg-round-trip-toggle",
+    "[Experiment] Variant": "round-trip-on",
+    "eventAction": "undefined",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 4: enableRoundTrip</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 42 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "enableRoundTrip",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "vsfmzozn4d6p8nqd",
+    "time": 1769583043.691,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventCategory": "enableRoundTrip",
+    "eventLabel": "flightSearchForm",
+    "vertical": "flight",
+    "eventAction": "click",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 5: enableRoundTrip</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 42 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "enableRoundTrip",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "lfcslouo7uy6jwvn",
+    "time": 1769583043.714,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventCategory": "enableRoundTrip",
+    "eventLabel": "flightSearchForm",
+    "vertical": "flight",
+    "eventAction": "click",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 6: [Experiment] Exposure</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 41 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "[Experiment] Exposure",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "u3n8i4tuqfjcfcbc",
+    "time": 1769583043.909,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventCategory": "[Experiment] Exposure",
+    "[Experiment] Flag Key": "global-search-typing-state-experiments",
+    "eventAction": "undefined",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event 7: [Experiment] Exposure</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: 41 items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">{
+  "event": "[Experiment] Exposure",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$current_url": "https://gatotkaca.tiket.com/id-id/flights",
+    "$browser_version": 145,
+    "$screen_height": 720,
+    "$screen_width": 1280,
+    "mp_lib": "web",
+    "$lib_version": "2.73.0",
+    "$insert_id": "h9bhz2qgl2ocwcix",
+    "time": 1769583043.911,
+    "distinct_id": "",
+    "$device_id": "f76189a3-a934-466e-8887-b41305b7a744",
+    "$initial_referrer": "$direct",
+    "$initial_referring_domain": "$direct",
+    "tiketSessionId": "6154c581-48eb-4ce5-bdc8-3d706c7ad61e",
+    "language": "ID",
+    "currency": "IDR",
+    "country": "ID",
+    "platform": "dweb",
+    "isGuest": 0,
+    "deviceId": "f76189a3-a934-466e-8887-b41305b7a744",
+    "referrer": "none",
+    "utmCampaign": "none",
+    "utmContent": "none",
+    "utmExternal": "organic",
+    "utmId": "none",
+    "utmMedium": "none",
+    "utmSource": "none",
+    "utmTerm": "none",
+    "utmAttributedAt": "2026-01-28T06:50:40.228Z",
+    "ttoclid": "none",
+    "tagmpid": "none",
+    "tagttoclid": "none",
+    "miniappsPartner": "none",
+    "commonAnalyticVersion": "0.0.0-alpha-1028-20260122084117",
+    "$mp_replay_id": "714b96b1-ebeb-48f3-afe8-5e123b386798",
+    "eventCategory": "[Experiment] Exposure",
+    "[Experiment] Flag Key": "disc-global-search-poi-experiment",
+    "eventAction": "undefined",
+    "token": "f3c53988917c8b879ce8e5bc6040838e",
+    "mp_sent_by_lib_version": "2.73.0"
+  }
+}</pre>
+                            </details>
+                        </div>
+                    
+                </div>
+            
+            
+            <h3>🔍 Event Matching Analysis</h3>
+            <table>
+                <tr><th>Expected Event</th><th>Status</th><th>Exact Match</th><th>Similar Events Found</th></tr>
+                
+                        <tr>
+                            <td><strong>$identify</strong></td>
+                            <td style="color: #28a745; font-weight: bold;">FOUND</td>
+                            <td>✅</td>
+                            <td>$identify</td>
+                        </tr>
+                    
+                        <tr>
+                            <td><strong>pageVisit</strong></td>
+                            <td style="color: #28a745; font-weight: bold;">FOUND</td>
+                            <td>✅</td>
+                            <td>pageVisit</td>
+                        </tr>
+                    
+            </table>
+            
+            <h3>🌐 Network Details</h3>
+            <table>
+                <tr><th>URL</th><th>Method</th><th>Status</th><th>Data Preview</th></tr>
+                
+                    <tr>
+                        <td>https://api-js.mixpanel.com/track/?verbose=1&ip=1&_=1769583045242</td>
+                        <td>POST</td>
+                        <td>N/A</td>
+                        <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis;">data=%5B%7B%22event%22%3A%22%24identify%22%2C%22properties%22%3A%7B%22%24os%22%3A%22Windows%22%2C%22%24browser%22%3A%22Chrome%22%2C%22%24current_url%22%3A%22https%3A%2F%2Fgatotkaca.tiket.com%2Fid-id%2</td>
+                    </tr>
+                
+            </table>
+        </div>
+    
+</body>
+</html>

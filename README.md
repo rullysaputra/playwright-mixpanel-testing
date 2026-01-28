@@ -44,7 +44,13 @@ Edit `.env.local` and update the URLs to match your actual page:
 BASE_URL=https://your-staging-domain.com
 ```
 
-### 4. Run Tests
+### 4. [IMPORTANT] Configure Your Testing Page 
+Set the `mainTestPageUrl` variable in `utils/constants.ts` to the page you want to test:
+```typescript
+export const mainTestPageUrl = process.env.BASE_URL || '/flights'
+```
+
+### 5. Run Tests
 
 **Run with Browser UI (Debug Mode):**
 ```bash
@@ -63,7 +69,169 @@ After running tests, view the detailed HTML report:
 pnpm run show-report
 ```
 
-You can also check the button click report on `tests-results folder with the filename button-click-report.html`.
+### 📄 Generated HTML Reports
+
+The test suite automatically generates comprehensive HTML reports in the `test-results/` folder:
+
+#### **1. Initial Page Report (`mixpanel-report-[timestamp].html`)**
+<details>
+<summary>📋 View Sample Initial Page Report Output</summary>
+
+# 🔍 Mixpanel Analytics Test Report
+Generated: Tuesday, January 28, 2026 at 10:45:32 AM
+
+## Test 1: Page Load Events
+
+**URL:** https://your-domain.com/page  
+**🔍 Device ID:** `23d94722-c63f-437f-94db-2a8f3ac922e4`  
+**🔑 Mixpanel Token:** `f3c53988917c8b879ce8e5bc6040838e`
+
+### 📊 Summary
+
+| Metric | Value |
+|--------|-------|
+| Total Requests | 45 |
+| Mixpanel Requests | 3 |
+| Expected Events | 2 |
+| Found Events | 2 |
+| Missing Events | 0 |
+
+### 🎯 Event Results
+
+- **$identify** ✅ **FOUND**
+- **pageVisit** ✅ **FOUND**
+
+### 📦 All Captured Events (Raw Payload)
+
+**Total Events Captured:** 3
+
+**Event 1: $identify**  
+*Properties: 15 items*  
+<details>
+<summary>Show Full Payload</summary>
+
+```json
+{
+  "event": "$identify",
+  "properties": {
+    "$os": "Windows",
+    "$browser": "Chrome",
+    "$device_id": "23d94722-c63f-437f-94db-2a8f3ac922e4",
+    "token": "f3c53988917c8b879ce8e5bc6040838e"
+  }
+}
+```
+</details>
+
+**Event 2: pageVisit**  
+*Properties: 12 items*  
+<details>
+<summary>Show Full Payload</summary>
+
+```json
+{
+  "event": "pageVisit",
+  "properties": {
+    "page_url": "https://your-domain.com/page",
+    "page_title": "Your Page Title",
+    "$device_id": "23d94722-c63f-437f-94db-2a8f3ac922e4"
+  }
+}
+```
+</details>
+
+### 🔍 Event Matching Analysis
+
+| Expected Event | Status | Exact Match | Similar Events Found |
+|----------------|--------|-------------|---------------------|
+| **$identify** | **FOUND** | ✅ | $identify |
+| **pageVisit** | **FOUND** | ✅ | pageVisit |
+
+</details>
+
+#### **2. Button Click Report (`button-click-report-[timestamp].html`)**
+<details>
+<summary>🖱️ View Sample Button Click Report Output</summary>
+
+# 🔍 Mixpanel Analytics Test Report
+Generated: Tuesday, January 28, 2026 at 10:47:15 AM
+
+## Test 1: Button Click Test
+
+**URL:** https://your-domain.com/page  
+**🔍 Device ID:** `23d94722-c63f-437f-94db-2a8f3ac922e4`
+
+### 📊 Summary
+
+| Metric | Value |
+|--------|-------|
+| Total Requests | 52 |
+| Mixpanel Requests | 5 |
+| Expected Events | 3 |
+| Found Events | 2 |
+| Missing Events | 1 |
+
+### 🎯 Event Results
+
+- **seoPageModuleTabs** ✅ **FOUND**  
+  ```json
+  {
+    "event": "seoPageModuleTabs",
+    "properties": {
+      "eventAction": "click",
+      "eventCategory": "seoPageModuleTabs",
+      "screenName": "home",
+      "buttonText": "Hotels",
+      "$device_id": "23d94722-c63f-437f-94db-2a8f3ac922e4"
+    }
+  }
+  ```
+
+- **enableRoundTrip** ✅ **FOUND**
+
+- **bannerPageModuleSeeAllCTA** ❌ **MISSING**
+
+### 📦 All Captured Events (Raw Payload)
+
+**Total Events Captured:** 5
+
+**Event 1: seoPageModuleTabs**  
+*Properties: 12 items*
+
+**Event 2: enableRoundTrip**  
+*Properties: 10 items*
+
+**Event 3: $identify**  
+*Properties: 15 items*
+
+**Event 4: pageVisit**  
+*Properties: 12 items*
+
+**Event 5: formInteraction**  
+*Properties: 8 items*
+
+### 🔍 Event Matching Analysis
+
+| Expected Event | Status | Exact Match | Similar Events Found |
+|----------------|--------|-------------|---------------------|
+| **seoPageModuleTabs** | **FOUND** | ✅ | seoPageModuleTabs |
+| **enableRoundTrip** | **FOUND** | ✅ | enableRoundTrip |
+| **bannerPageModuleSeeAllCTA** | **MISSING** | ❌ | None |
+
+### 🌐 Network Details
+
+| URL | Method | Status | Data Preview |
+|-----|--------|---------|--------------|
+| https://api-js.mixpanel.com/track/?verbose=1&ip=1 | POST | 200 | data=[{"event":"seoPageModuleTabs","properties":{"eventAction":"click"... |
+| https://api-js.mixpanel.com/track/?verbose=1&ip=1 | POST | 200 | data=[{"event":"enableRoundTrip","properties":{"eventAction":"toggle"... |
+
+</details>
+
+### 📁 Report Location
+All reports are saved in `test-results/` folder:
+- `mixpanel-report-[timestamp].html` - Initial page load events
+- `button-click-report-[timestamp].html` - Button interaction events  
+- `comprehensive-report-[timestamp].html` - Complete analytics overview
 
 ## 🧪 Test Suites
 
@@ -84,7 +252,7 @@ You can also check the button click report on `tests-results folder with the fil
 In `tests/data/main-page.ts`, define the expected initial Mixpanel events for page with add new events as needed on the array:
 ```typescript
 export const expectedEvents = [
-  'page_view',
+  'pageVisit',
 ];
 ```
 
@@ -100,7 +268,7 @@ export const expectedClickEvents = [
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `ENV` | Environment (staging/production) | `staging` |
-| `BASE_URL` | Your main Page | - |
+| `BASE_URL` | Your base url Page | - |
 | `MIXPANEL_API_URL` | Mixpanel API endpoint | `https://api-js.mixpanel.com/track/` |
 | `DEFAULT_TIMEOUT` | Default test timeout (ms) | `30000` |
 | `PAGE_LOAD_TIMEOUT` | Page load timeout (ms) | `10000` |
@@ -220,4 +388,3 @@ const filteredEvents = mixpanelTracker.getMixpanelPayloads()
   .filter(event => event.properties.page_type === 'checkout');
 ```
 
-**Happy Testing! 🎉**

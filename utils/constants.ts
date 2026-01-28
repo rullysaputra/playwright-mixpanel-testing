@@ -1,0 +1,1 @@
+export const mainTestPageUrl = process.env.BASE_URL + "/id-id/flights"

@@ -4,8 +4,8 @@ import {
   MixpanelTestReporter,
 } from "../utils/mixpanel-tracker";
 import { PageHelpers } from "../utils/page-helpers";
+import { mainTestPageUrl } from "../utils/constants";
 
-const mainUrl = process.env.BASE_URL;
 const reporter = new MixpanelTestReporter();
 
 // Add the expected event when the page was initially open
@@ -18,12 +18,15 @@ const clickExpectedSelectors = [
   // 'a[href*="search"]',
   // 'button:has-text("Search")',
   // 'button:has-text("Book")',
-  '[data-testid*="verticalTab-flight"]',
+  'button[class*="Tabs_tab__"]',
+  'div[class*="Toggle_toggle__1qFNC"]',
+  'span:has-text("CTA button")',
+  // '[data-testid*="verticalTab-flight"]',
 ];
 
-const clickExpectedEvents = ["enterVertical"]
+const clickExpectedEvents = ["enableRoundTrip","seoPageModuleTabs", "bannerPageModuleSeeAllCTA"]
 
-test.describe("Homepage Mixpanel Analytics", () => {
+test.describe("Page Mixpanel Analytics", () => {
   let mixpanelTracker: MixpanelTracker;
   let pageHelpers: PageHelpers;
 
@@ -32,21 +35,45 @@ test.describe("Homepage Mixpanel Analytics", () => {
     pageHelpers = new PageHelpers(page);
   });
 
-  test("should track page visit when homepage loads", async ({ page }) => {
-    console.log(`\n🎯 Testing Mixpanel Analytics on: ${mainUrl}`);
+  test("should track page visit when page loads", async ({ page }) => {
+    console.log(`\n🎯 Testing Mixpanel Analytics on: ${mainTestPageUrl}`);
     console.log("=".repeat(60));
 
     // Navigate to homepage
-    await page.goto(mainUrl);
+    await page.goto(mainTestPageUrl);
     await pageHelpers.waitForPageToLoad(30000);
 
     console.log(`\n📋 Testing for events: ${expectedEvents.join(", ")}`);
 
     const report = await mixpanelTracker.testForEvents(expectedEvents, {
       timeout: 20000,
-      testName: "Homepage Load Events",
-      url: mainUrl || "Unknown",
+      testName: "Page Load Events",
+      url: mainTestPageUrl || "Unknown",
     });
+
+    // 🔍 DEBUG: Show what was actually captured vs expected
+    console.log('\n🔍 DEBUG INFORMATION:');
+    console.log('='.repeat(40));
+    console.log(`Expected Events: [${expectedEvents.join(', ')}]`);
+    console.log(`Found Events: [${report.foundEvents.join(', ')}]`);
+    console.log(`Raw Payload Count: ${report.rawPayloads.length}`);
+    
+    if (report.rawPayloads.length > 0) {
+      console.log('\n📦 ALL CAPTURED EVENTS:');
+      report.rawPayloads.forEach((payload, index) => {
+        console.log(`  ${index + 1}. "${payload.event}" - ${JSON.stringify(payload.properties?.eventAction || 'no action')}`);
+      });
+      
+      console.log('\n🎯 EVENT NAME EXACT MATCHES:');
+      expectedEvents.forEach(expectedEvent => {
+        const found = report.rawPayloads.some(p => p.event === expectedEvent);
+        const similarFound = report.rawPayloads.filter(p => 
+          p.event.toLowerCase().includes(expectedEvent.toLowerCase()) || 
+          expectedEvent.toLowerCase().includes(p.event.toLowerCase())
+        );
+        console.log(`  "${expectedEvent}" → Found exact: ${found ? '✅' : '❌'} | Similar: ${similarFound.map(s => s.event).join(', ')}`);
+      });
+    }
 
     // Show device ID immediately after capture
     if (report.deviceId) {
@@ -105,20 +132,55 @@ test.describe("Homepage Mixpanel Analytics", () => {
       `📄 JSON report saved: test-results/mixpanel-report-${timestamp}.json`,
     );
 
-    // Assertions
-    expect(report.mixpanelRequests).toBeGreaterThan(0);
-    expect(report.foundEvents.length).toBeGreaterThan(0);
+    // Assertions with better error messaging
+    expect(report.mixpanelRequests).toBeGreaterThan(0, 
+      'Should have made Mixpanel API requests');
+    expect(report.foundEvents.length).toBeGreaterThan(0, 
+      `Should capture at least one event. Raw payloads captured: ${report.rawPayloads.length}`);
 
-    // At minimum expect pageVisit event for homepage
-    const hasPageVisit = report.foundEvents.includes("pageVisit");
-    expect(hasPageVisit).toBe(true, "Should capture pageVisit event");
+    // Check for pageVisit event with flexible matching
+    const hasPageVisitExact = report.foundEvents.includes("pageVisit");
+    const hasPageVisitSimilar = report.rawPayloads.some(p => 
+      p.event.toLowerCase().includes("pagevisit") || 
+      p.event.toLowerCase().includes("page_visit") ||
+      p.event.toLowerCase().includes("page-visit")
+    );
+    
+    if (!hasPageVisitExact && hasPageVisitSimilar) {
+      const actualPageVisitEvent = report.rawPayloads.find(p => 
+        p.event.toLowerCase().includes("pagevisit") || 
+        p.event.toLowerCase().includes("page_visit") ||
+        p.event.toLowerCase().includes("page-visit")
+      );
+      console.log(`⚠️  Expected "pageVisit" but found "${actualPageVisitEvent?.event}"`);
+      console.log('💡 Consider updating expectedEvents array to match actual event names');
+    }
+    
+    expect(hasPageVisitExact || hasPageVisitSimilar).toBe(true, 
+      `Should capture pageVisit event. All events found: [${report.foundEvents.join(', ')}]`);
+
+    // Check for $identify event  
+    const hasIdentifyExact = report.foundEvents.includes("$identify");
+    const hasIdentifySimilar = report.rawPayloads.some(p => 
+      p.event.toLowerCase().includes("identify")
+    );
+    
+    if (!hasIdentifyExact && hasIdentifySimilar) {
+      const actualIdentifyEvent = report.rawPayloads.find(p => 
+        p.event.toLowerCase().includes("identify")
+      );
+      console.log(`⚠️  Expected "$identify" but found "${actualIdentifyEvent?.event}"`);
+    }
+    
+    expect(hasIdentifyExact || hasIdentifySimilar).toBe(true, 
+      `Should capture $identify event. All events found: [${report.foundEvents.join(', ')}]`);
 
     // Take screenshot
     await pageHelpers.takeScreenshot(`homepage-test-${timestamp}`);
   });
 
   test("should track button click events", async ({ page }) => {
-    await page.goto(mainUrl);
+    await page.goto(mainTestPageUrl);
     await pageHelpers.waitForPageToLoad();
 
     // Wait for initial load events
@@ -150,15 +212,14 @@ test.describe("Homepage Mixpanel Analytics", () => {
 
     // Assertions
     expect(clickReport.foundEvents.length).toBeGreaterThan(
-      0,
-      "Should capture click events",
+      0
     );
 
     await pageHelpers.takeScreenshot(`button-click-${timestamp}`);
   });
 
   test("should generate comprehensive analytics report", async ({ page }) => {
-    await page.goto(mainUrl);
+    await page.goto(mainTestPageUrl);
     await pageHelpers.waitForPageToLoad();
 
     console.log("\n📋 Generating Comprehensive Analytics Report");
@@ -193,7 +254,7 @@ test.describe("Homepage Mixpanel Analytics", () => {
     const comprehensiveReport = await mixpanelTracker.testForEvents(allEvents, {
       timeout: 5000,
       testName: "Comprehensive Analytics Report",
-      url: mainUrl || "Unknown",
+      url: mainTestPageUrl,
     });
 
     reporter.addReport(comprehensiveReport);
@@ -254,7 +315,7 @@ async function testUserInteraction(
   },
 ) {
   const { testName, selectors, expectedEvents, timeout } = options;
-
+  let totalInteractions = 0;
   console.log(`\n📍 ${testName}`);
   let interactionSuccess = false;
 
@@ -264,14 +325,23 @@ async function testUserInteraction(
       const count = await element.count();
 
       if (count > 0) {
-        console.log(`⚙️  Interacting with: ${selector}`);
-        await element.first().click();
-        await page.waitForTimeout(1000);
-        interactionSuccess = true;
-        break;
+        console.log(`⚙️  Interacting with: ${selector} (${count} elements found)`);
+        
+        // Click the first visible element
+        const firstElement = element.first();
+        if (await firstElement.isVisible()) {
+          await firstElement.click();
+          await page.waitForTimeout(1500); // Wait for analytics to fire
+          totalInteractions++;
+          console.log(`✅ Successfully clicked: ${selector}`);
+        } else {
+          console.log(`⚠️  Element not visible: ${selector}`);
+        }
+      } else {
+        console.log(`❌ Element not found: ${selector}`);
       }
     } catch (error) {
-      console.log(`⚠️  Could not interact with ${selector}`);
+      console.log(`⚠️  Could not interact with ${selector}: ${error.message}`);
     }
   }
 

@@ -106,6 +106,48 @@ export class MixpanelTestReporter {
                 </div>
             `).join('')}
             
+            <h3>📦 All Captured Events (Raw Payload)</h3>
+            <p><strong>Total Events Captured:</strong> ${report.rawPayloads.length}</p>
+            ${report.rawPayloads.length > 0 ? `
+                <div style="max-height: 400px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: #f8f9fa;">
+                    ${report.rawPayloads.map((payload, index) => `
+                        <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid #007bff; background: white;">
+                            <strong>Event ${index + 1}: ${payload.event}</strong>
+                            <div style="font-size: 11px; color: #666; margin-top: 5px;">
+                                Properties: ${Object.keys(payload.properties || {}).length} items
+                            </div>
+                            <details style="margin-top: 5px;">
+                                <summary style="cursor: pointer; color: #007bff;">Show Full Payload</summary>
+                                <pre style="font-size: 10px; background: #e9ecef; padding: 5px; margin-top: 5px; overflow-x: auto;">${JSON.stringify(payload, null, 2)}</pre>
+                            </details>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : '<p style="color: #666; font-style: italic;">No events captured in raw payload</p>'}
+            
+            <h3>🔍 Event Matching Analysis</h3>
+            <table>
+                <tr><th>Expected Event</th><th>Status</th><th>Exact Match</th><th>Similar Events Found</th></tr>
+                ${report.expectedEvents.map(expectedEvent => {
+                    const exactMatch = report.rawPayloads.some(p => p.event === expectedEvent);
+                    const similarMatches = report.rawPayloads.filter(p => 
+                        p.event.toLowerCase().includes(expectedEvent.toLowerCase()) || 
+                        expectedEvent.toLowerCase().includes(p.event.toLowerCase())
+                    );
+                    const status = exactMatch ? 'FOUND' : (similarMatches.length > 0 ? 'SIMILAR' : 'MISSING');
+                    const statusColor = exactMatch ? '#28a745' : (similarMatches.length > 0 ? '#ffc107' : '#dc3545');
+                    
+                    return `
+                        <tr>
+                            <td><strong>${expectedEvent}</strong></td>
+                            <td style="color: ${statusColor}; font-weight: bold;">${status}</td>
+                            <td>${exactMatch ? '✅' : '❌'}</td>
+                            <td>${similarMatches.length > 0 ? similarMatches.map(m => m.event).join(', ') : 'None'}</td>
+                        </tr>
+                    `;
+                }).join('')}
+            </table>
+            
             <h3>🌐 Network Details</h3>
             <table>
                 <tr><th>URL</th><th>Method</th><th>Status</th><th>Data Preview</th></tr>
@@ -459,57 +501,51 @@ export class MixpanelTracker {
   } = {}): Promise<NetworkTestReport> {
     const { timeout = 15000, testName = 'Event Test', url = 'Unknown' } = options;
     const startTime = Date.now();
-    const testResults: TestResult[] = [];
     
-    // Wait for events
+    // Wait for events to be captured
     while (Date.now() - startTime < timeout) {
-      const foundEvents = this.getMixpanelPayloads();
-      const foundEventNames = foundEvents.map(e => e.event);
+      const currentEvents = this.getMixpanelPayloads();
+      const currentEventNames = currentEvents.map(e => e.event);
       
-      // Check each expected event
-      for (const eventName of eventNames) {
-        const existing = testResults.find(r => r.eventName === eventName);
-        if (!existing) {
-          const found = foundEventNames.includes(eventName);
-          const payload = found ? foundEvents.find(e => e.event === eventName) : undefined;
-          
-          testResults.push({
-            success: found,
-            eventName,
-            found,
-            payload,
-            timestamp: new Date().toISOString()
-          });
-        }
-      }
-      
-      // If all events found, break early
-      if (testResults.length === eventNames.length && testResults.every(r => r.found)) {
+      // Check if we have all expected events
+      const allFound = eventNames.every(eventName => currentEventNames.includes(eventName));
+      if (allFound) {
+        console.log(`✅ All events found early at ${Date.now() - startTime}ms`);
         break;
       }
       
       await this.page.waitForTimeout(100);
     }
     
-    // Ensure we have results for all expected events
-    for (const eventName of eventNames) {
-      if (!testResults.some(r => r.eventName === eventName)) {
-        testResults.push({
-          success: false,
-          eventName,
-          found: false,
-          timestamp: new Date().toISOString(),
-          error: 'Timeout waiting for event'
-        });
-      }
-    }
-    
+    // After timeout, create final results
     const allPayloads = this.getMixpanelPayloads();
     const foundEventNames = allPayloads.map(e => e.event);
+    const testResults: TestResult[] = [];
+    
+    // Create test results for each expected event
+    for (const eventName of eventNames) {
+      const found = foundEventNames.includes(eventName);
+      const payload = found ? allPayloads.find(e => e.event === eventName) : undefined;
+      
+      testResults.push({
+        success: found,
+        eventName,
+        found,
+        payload,
+        timestamp: new Date().toISOString()
+      });
+    }
+    
     const missingEvents = eventNames.filter(name => !foundEventNames.includes(name));
     
     // Extract device information
     const deviceInfo = await this.extractDeviceInfo();
+    
+    // Debug logging
+    console.log(`🔍 Event matching debug:`);
+    console.log(`  Expected: [${eventNames.join(', ')}]`);
+    console.log(`  Found: [${foundEventNames.join(', ')}]`);
+    console.log(`  Missing: [${missingEvents.join(', ')}]`);
     
     return {
       testName,
