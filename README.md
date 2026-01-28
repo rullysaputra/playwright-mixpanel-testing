@@ -254,7 +254,7 @@ open test-results/comprehensive-report-*.html
 - Validates button click events
 - Verifies Mixpanel API calls and payloads
 
-### 4. Network Validation (`network-validation.spec.ts`)
+### 2. Network Validation (`network-validation.spec.ts`)
 - API endpoint verification
 - Payload structure validation
 - Performance monitoring
