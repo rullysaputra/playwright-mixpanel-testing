@@ -230,12 +230,6 @@ Generated: Tuesday, January 28, 2026 at 10:47:15 AM
 ### 📁 Report Location
 All reports are saved in `test-results/` folder:
 
-#### 📊 Quick Access to Latest Reports
-**Click to open reports in your browser:**
-- [📋 Initial Page Report](file://./test-results/mixpanel-report.html){:target="_blank"} - `mixpanel-report-[timestamp].html`
-- [🖱️ Button Click Report](file://./test-results/button-click-report.html){:target="_blank"} - `button-click-report-[timestamp].html`  
-- [📈 Comprehensive Report](file://./test-results/comprehensive-report.html){:target="_blank"} - `comprehensive-report-[timestamp].html`
-
 #### 📂 Manual File Access
 Navigate to your project folder and open:
 ```bash
