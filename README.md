@@ -229,9 +229,29 @@ Generated: Tuesday, January 28, 2026 at 10:47:15 AM
 
 ### 📁 Report Location
 All reports are saved in `test-results/` folder:
-- `mixpanel-report-[timestamp].html` - Initial page load events
-- `button-click-report-[timestamp].html` - Button interaction events  
-- `comprehensive-report-[timestamp].html` - Complete analytics overview
+
+#### 📊 Quick Access to Latest Reports
+**Click to open reports in your browser:**
+- [📋 Initial Page Report](file://./test-results/mixpanel-report.html){:target="_blank"} - `mixpanel-report-[timestamp].html`
+- [🖱️ Button Click Report](file://./test-results/button-click-report.html){:target="_blank"} - `button-click-report-[timestamp].html`  
+- [📈 Comprehensive Report](file://./test-results/comprehensive-report.html){:target="_blank"} - `comprehensive-report-[timestamp].html`
+
+#### 📂 Manual File Access
+Navigate to your project folder and open:
+```bash
+# Open in default browser
+open test-results/mixpanel-report-*.html
+open test-results/button-click-report-*.html
+open test-results/comprehensive-report-*.html
+
+# Or navigate manually to:
+# /Users/[username]/path/to/your/project/test-results/
+```
+
+**File Locations:**
+- 📁 `./test-results/mixpanel-report-[timestamp].html` - Initial page load events
+- 📁 `./test-results/button-click-report-[timestamp].html` - Button interaction events  
+- 📁 `./test-results/comprehensive-report-[timestamp].html` - Complete analytics overview
 
 ## 🧪 Test Suites
 
